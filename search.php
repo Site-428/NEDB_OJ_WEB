@@ -88,7 +88,7 @@
 	}
 	else
 	{
-		$q=$q." WHERE TERM LIKE '%$search[0]%'";
+		$q=$q." WHERE concat(ID,SCHOOL_ID,SCH_NAME,MAJOR_ID,MAJ_NAME,BEGIN,END,TERM,STU_NUM,OJ_TYPE,LAN) LIKE '%$search[0]%'";
 	}
 	for($i=1;$i<count($search);$i++)
 	{
@@ -99,9 +99,9 @@
 		}
 		else
 		{
-			$q=$q." AND TERM LIKE '%$search[$i]%'";
+			$q=$q." AND concat(ID,SCHOOL_ID,SCH_NAME,MAJOR_ID,MAJ_NAME,BEGIN,END,TERM,STU_NUM,OJ_TYPE,LAN) LIKE '%$search[$i]%'";
 		}
-	}echo $q;
+	}
 	$result=mysqli_query($db,$q);
 	$rownum = mysqli_num_rows($result);
 	for($j=0;$j<$rownum;$j++)
@@ -163,3 +163,4 @@
 
 
 </body></html>
+
