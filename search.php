@@ -41,7 +41,7 @@
 		
 		<div class="main-search-box pt-3 d-block mx-auto">
 			 <form class="search-form w-100" action="search.php" method="post">
-				<input type="text" placeholder="样例：2019-10-11;东南大学;MSC;1-1;SPOJ" name="search" class="form-control search-input">
+				<input type="text" placeholder="样例：2019-10 东南大学 MSC 1-1 SPOJ" name="search" class="form-control search-input">
 				<button type="submit" class="btn search-btn" value="Search"><svg class="svg-inline--fa fa-search fa-w-16" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="search" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" data-fa-i2svg=""><path fill="currentColor" d="M505 442.7L405.3 343c-4.5-4.5-10.6-7-17-7H372c27.6-35.3 44-79.7 44-128C416 93.1 322.9 0 208 0S0 93.1 0 208s93.1 208 208 208c48.3 0 92.7-16.4 128-44v16.3c0 6.4 2.5 12.5 7 17l99.7 99.7c9.4 9.4 24.6 9.4 33.9 0l28.3-28.3c9.4-9.4 9.4-24.6.1-34zM208 336c-70.7 0-128-57.2-128-128 0-70.7 57.2-128 128-128 70.7 0 128 57.2 128 128 0 70.7-57.2 128-128 128z"></path></svg><!-- <i class="fas fa-search"></i> --></button>
 			</form>
 		 </div>
@@ -52,21 +52,8 @@
 		<div class="docs-overview py-5">
 			<div class="row justify-content-center">
 <?php
-	header("Content-Type: text/html;charset=utf-8");	
-	$search= $_POST['search'];
-	$db=mysqli_connect('localhost','root','SEU-BME-SQL','NEDB');
-	$db->query("set names utf8");
-	if(!$db)
-	{
-		die('ERROR'.mysqli_error());
-	}
-	$q1="SELECT * FROM OJ WHERE $search=1";
-	$result1 = mysqli_query($db,$q1);
-	$rownum = mysqli_num_rows($result1);
-	for($i=0;$i<$rownum;$i++)
-	{
-		$row=mysqli_fetch_assoc($result1);
-		echo '
+	header("Content-Type: text/html;charset=utf-8");
+	$html1='
 		<div class="col-12 col-lg-4 py-3">
 					<div class="card shadow-sm">
 						<div class="card-body">
@@ -74,16 +61,61 @@
 								<span class="theme-icon-holder card-icon-holder mr-2">
 									<svg class="svg-inline--fa fa-laptop-code fa-w-20" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="laptop-code" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512" data-fa-i2svg=""><path fill="currentColor" d="M255.03 261.65c6.25 6.25 16.38 6.25 22.63 0l11.31-11.31c6.25-6.25 6.25-16.38 0-22.63L253.25 192l35.71-35.72c6.25-6.25 6.25-16.38 0-22.63l-11.31-11.31c-6.25-6.25-16.38-6.25-22.63 0l-58.34 58.34c-6.25 6.25-6.25 16.38 0 22.63l58.35 58.34zm96.01-11.3l11.31 11.31c6.25 6.25 16.38 6.25 22.63 0l58.34-58.34c6.25-6.25 6.25-16.38 0-22.63l-58.34-58.34c-6.25-6.25-16.38-6.25-22.63 0l-11.31 11.31c-6.25 6.25-6.25 16.38 0 22.63L386.75 192l-35.71 35.72c-6.25 6.25-6.25 16.38 0 22.63zM624 416H381.54c-.74 19.81-14.71 32-32.74 32H288c-18.69 0-33.02-17.47-32.77-32H16c-8.8 0-16 7.2-16 16v16c0 35.2 28.8 64 64 64h512c35.2 0 64-28.8 64-64v-16c0-8.8-7.2-16-16-16zM576 48c0-26.4-21.6-48-48-48H112C85.6 0 64 21.6 64 48v336h512V48zm-64 272H128V64h384v256z"></path></svg><!-- <i class="fas fa-book-reader"></i> -->
 								</span><!--//card-icon-holder-->
-								<span class="card-title-text">';echo "No.".$row[ID]." ".$row[SCH_NAME];echo '</span>
+								<span class="card-title-text">';
+	$html2='</span>
 							</h5>
-							<div class="card-text">';echo $row[MAJ_NAME]." ".$row[TERM].": ".$row[BEGIN]."~".$row[END];echo '</div>
-							<a class="card-link-mask" href=';echo $row[URL];echo '></a>
+							<div class="card-text">';
+	$html3='</div>
+							<a class="card-link-mask" href=';	
+	$html4='></a>
 						</div><!--//card-body-->
 					</div><!--//card-->
 </div>
 		';
+	$search=explode(" ",$_POST['search']);
+	$TAG=["CLA","CODE","STAT","GRD","MSC","WSC","SEX","LOC","KNO","SPJ"];
+	$db=mysqli_connect('localhost','root','SEU-BME-SQL','NEDB');
+	$db->query("set names utf8");
+	if(!$db)
+	{
+		die('ERROR'.mysqli_error());
 	}
-	mysqli_free_result($result1);
+	$q="SELECT * FROM OJ";
+	$search[0]=strtoupper($search[0]);
+	if(in_array($search[0],$TAG))
+	{
+		$q=$q." WHERE $search[0]=1";
+	}
+	else
+	{
+		$q=$q." WHERE TERM LIKE '%$search[0]%'";
+	}
+	for($i=1;$i<count($search);$i++)
+	{
+		$search[$i]=strtoupper($search[$i]);
+		if(in_array($search[$i],$TAG))
+		{
+			$q=$q." AND $search[$i]=1";
+		}
+		else
+		{
+			$q=$q." AND TERM LIKE '%$search[$i]%'";
+		}
+	}echo $q;
+	$result=mysqli_query($db,$q);
+	$rownum = mysqli_num_rows($result);
+	for($j=0;$j<$rownum;$j++)
+	{
+		$row=mysqli_fetch_assoc($result);
+		echo $html1;
+		echo "OJ.".$row[ID]." ".$row[SCH_NAME];
+		echo $html2;
+		echo $row[MAJ_NAME]." ".$row[TERM].": ".$row[BEGIN]."~".$row[END];
+		echo $html3;
+		echo $row[URL];
+		echo $html4;
+	}
+	mysqli_free_result($result);
 	mysqli_close($db);
 ?>
 				
