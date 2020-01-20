@@ -73,7 +73,9 @@
 </div>
 		';
 	$search=explode(" ",$_POST['search']);
-	$TAG=["CLA","CODE","STAT","GRD","MSC","WSC","SEX","LOC","KNO","SPJ"];
+	$TAG=["EXAM","CLA","CODE","STAT","GRD","MSC","WSC","SEX","LOC","KNO","SPJ"];
+	$GRADE1=["大一","本科一年级","大学一年级","FRESHMAN","一年级","一"];
+	$SPC=["重修","困难"];
 	$db=mysqli_connect('localhost','root','SEU-BME-SQL','NEDB');
 	$db->query("set names utf8");
 	if(!$db)
@@ -86,9 +88,17 @@
 	{
 		$q=$q." WHERE $search[0]=1";
 	}
+	else if(in_array($search[0],$GRADE1))
+	{
+		$q=$q." WHERE TERM LIKE '1-%'";
+	}
+	else if(in_array($search[0],$SPC))
+	{
+		$q=$q." WHERE TERM LIKE '0-0'";
+	}
 	else
 	{
-		$q=$q." WHERE concat(ID,SCHOOL_ID,SCH_NAME,MAJOR_ID,MAJ_NAME,BEGIN,END,TERM,STU_NUM,OJ_TYPE,LAN) LIKE '%$search[0]%'";
+		$q=$q." WHERE concat(ID,SCHOOL_ID,SCH_NAME,MAJOR_ID,MAJ_NAME,BEGIN,END,TERM,STU_NUM,OJ_TYPE,LAN,LOG,USER,TEST,PROBLEM) LIKE '%$search[0]%'";
 	}
 	for($i=1;$i<count($search);$i++)
 	{
@@ -97,13 +107,33 @@
 		{
 			$q=$q." AND $search[$i]=1";
 		}
+		else if(in_array($search[0],$GRADE1))
+		{
+			$q=$q." AND TERM LIKE '1-%'";
+		}
+		else if(in_array($search[0],$SPC))
+		{
+			$q=$q." AND TERM LIKE '0-0'";
+		}
 		else
 		{
-			$q=$q." AND concat(ID,SCHOOL_ID,SCH_NAME,MAJOR_ID,MAJ_NAME,BEGIN,END,TERM,STU_NUM,OJ_TYPE,LAN) LIKE '%$search[$i]%'";
+			$q=$q." AND concat(ID,SCHOOL_ID,SCH_NAME,MAJOR_ID,MAJ_NAME,BEGIN,END,TERM,STU_NUM,OJ_TYPE,LAN,LOG,USER,TEST,PROBLEM) LIKE '%$search[$i]%'";
 		}
 	}
 	$result=mysqli_query($db,$q);
 	$rownum = mysqli_num_rows($result);
+	if($rownum==0)
+	{
+		$row=mysqli_fetch_assoc($result);
+		echo $html1;
+		echo "无结果";
+		echo $html2;
+		echo "请仔细阅读数据库说明文档，确保检索词输入正确。";
+		echo $html3;
+		echo "#";
+		echo $html4;
+	}
+	else
 	for($j=0;$j<$rownum;$j++)
 	{
 		$row=mysqli_fetch_assoc($result);
