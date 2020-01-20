@@ -107,11 +107,11 @@
 		{
 			$q=$q." AND $search[$i]=1";
 		}
-		else if(in_array($search[0],$GRADE1))
+		else if(in_array($search[$i],$GRADE1))
 		{
 			$q=$q." AND TERM LIKE '1-%'";
 		}
-		else if(in_array($search[0],$SPC))
+		else if(in_array($search[$i],$SPC))
 		{
 			$q=$q." AND TERM LIKE '0-0'";
 		}
