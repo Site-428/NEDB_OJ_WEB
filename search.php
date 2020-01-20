@@ -76,7 +76,7 @@
 	$TAG=["EXAM","CLA","CODE","STAT","GRD","MSC","WSC","SEX","LOC","KNO","SPJ"];
 	$GRADE1=["大一","本科一年级","大学一年级","FRESHMAN","一年级","一"];
 	$SPC=["重修","困难"];
-	$db=mysqli_connect('localhost','root','SEU-BME-SQL','NEDB');
+	$db=mysqli_connect('localhost','root','','NEDB');
 	$db->query("set names utf8");
 	if(!$db)
 	{
