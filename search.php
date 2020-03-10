@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 
 <html lang="en" class="fontawesome-i2svg-active fontawesome-i2svg-complete"><head>
 <title>检索结果</title>
@@ -25,7 +25,7 @@
 	<div class="branding docs-branding">
 		<div class="container-fluid position-relative py-2">
 			<div class="docs-logo-wrapper">
-				<div class="site-logo"><a class="navbar-brand" href="index.html"><img class="logo-icon mr-2" src="assets/images/coderdocs-logo.svg" alt="logo"><span class="logo-text">NEDB<span class="text-alt">.OJ</span></span></a></div>    
+				<div class="site-logo"><a class="navbar-brand" href="index.php"><img class="logo-icon mr-2" src="assets/images/coderdocs-logo.svg" alt="logo"><span class="logo-text">NEDB<span class="text-alt">.OJ</span></span></a></div>    
 			</div><!--//docs-logo-wrapper-->
 			<!--//docs-top-utilities-->
 		</div><!--//container-->
@@ -76,7 +76,7 @@
 	$TAG=["EXAM","CLA","CODE","STAT","GRD","MSC","WSC","SEX","LOC","KNO","SPJ"];
 	$GRADE1=["大一","本科一年级","大学一年级","FRESHMAN","一年级","一"];
 	$SPC=["重修","困难"];
-	$db=mysqli_connect('localhost','TCDCPP','TCDCPP','TCD428');
+	$db=mysqli_connect('localhost','【用户】','【密码】','NEDB');
 	$db->query("set names utf8");
 	if(!$db)
 	{
@@ -98,7 +98,7 @@
 	}
 	else
 	{
-		$q=$q." WHERE concat(ID,SCHOOL_ID,SCH_NAME,MAJOR_ID,MAJ_NAME,BEGIN,END,TERM,STU_NUM,OJ_TYPE,LAN,LOG,USER,TEST,PROBLEM) LIKE '%$search[0]%'";
+		$q=$q." WHERE concat(ID,SCHOOL_ID,SCH_NAME,MAJOR_ID,MAJ_NAME,BEGIN,END,TERM,STU_NUM,OJ_TYPE,LAN,ACQ_URL,ANA_URL,APP_URL,LOG,USER,TEST,PROBLEM) LIKE '%$search[0]%'";
 	}
 	for($i=1;$i<count($search);$i++)
 	{
@@ -117,7 +117,7 @@
 		}
 		else
 		{
-			$q=$q." AND concat(ID,SCHOOL_ID,SCH_NAME,MAJOR_ID,MAJ_NAME,BEGIN,END,TERM,STU_NUM,OJ_TYPE,LAN,LOG,USER,TEST,PROBLEM) LIKE '%$search[$i]%'";
+			$q=$q." AND concat(ID,SCHOOL_ID,SCH_NAME,MAJOR_ID,MAJ_NAME,BEGIN,END,TERM,STU_NUM,OJ_TYPE,LAN,ACQ_URL,ANA_URL,APP_URL,LOG,USER,TEST,PROBLEM) LIKE '%$search[$i]%'";
 		}
 	}
 	$result=mysqli_query($db,$q);
@@ -142,7 +142,7 @@
 		echo $html2;
 		echo $row[MAJ_NAME]." ".$row[TERM].": ".$row[BEGIN]."~".$row[END];
 		echo $html3;
-		echo $row[URL];
+		echo $row[URL]."/releases";
 		echo $html4;
 	}
 	mysqli_free_result($result);

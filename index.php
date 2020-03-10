@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en" class="fontawesome-i2svg-active fontawesome-i2svg-complete"><head>
 <title>NEDB.OJ</title>
 
@@ -24,7 +24,7 @@
 	<div class="branding docs-branding">
 		<div class="container-fluid position-relative py-2">
 			<div class="docs-logo-wrapper">
-				<div class="site-logo"><a class="navbar-brand" href="index.html"><img class="logo-icon mr-2" src="assets/images/coderdocs-logo.svg" alt="logo"><span class="logo-text">NEDB<span class="text-alt">.OJ</span></span></a></div>    
+				<div class="site-logo"><a class="navbar-brand" href="index.php"><img class="logo-icon mr-2" src="assets/images/coderdocs-logo.svg" alt="logo"><span class="logo-text">NEDB<span class="text-alt">.OJ</span></span></a></div>    
 			</div><!--//docs-logo-wrapper-->
 			<!--//docs-top-utilities-->
 		</div><!--//container-->
@@ -59,8 +59,8 @@
 								</span><!--//card-icon-holder-->
 								<span class="card-title-text">子库简介</span>
 							</h5>
-							<div class="card-text">本数据库为东南大学神经教育学大数据中心OJ子库（简称NEDB.OJ），依照《中国本科生在线测评系统教育数据标准V0.1》采集在线测评系统（简称OJ）数据。</div>
-							<a class="card-link-mask" href="#"></a>
+							<div class="card-text">在线测评系统（简称OJ）不仅可以简化程序设计相关课程作业流程，亦是该类课程教研的采集利器。本库为东南大学神经教育学大数据中心管理该类平台数据的子库。</div>
+							<a class="card-link-mask" href="http://home.bmeonline.cn/NEDB/NEDB.OJ/api/"></a>
 						</div><!--//card-body-->
 					</div><!--//card-->
 				</div><!--//col-->
@@ -74,7 +74,7 @@
 								<span class="card-title-text">资料下载</span>
 							</h5>
 							<div class="card-text">《中国本科生在线测评系统教育数据标准V0.1》基于东南大学学习科学研究中心虚拟行为研究团队多年经验发布，是全国首个服务实证教研的OJ教育数据标准。</div>
-							<a class="card-link-mask" href="##section-8"></a>
+							<a class="card-link-mask" href="http://share.bmeonline.cn/bme-share-site-management/relevant-documents/raw/master/%E4%B8%AD%E5%9B%BD%E6%9C%AC%E7%A7%91%E7%94%9F%E5%9C%A8%E7%BA%BF%E6%B5%8B%E8%AF%84%E7%B3%BB%E7%BB%9F%E6%95%99%E8%82%B2%E6%95%B0%E6%8D%AE%E6%A0%87%E5%87%86V0.1.pdf"></a>
 						</div><!--//card-body-->
 					</div><!--//card-->
 				</div><div class="col-12 col-lg-4 py-3">
@@ -91,13 +91,6 @@
 						</div><!--//card-body-->
 					</div><!--//card-->
 				</div><!--//col-->
-				<!--//col-->
-				<!--//col-->
-				<!--//col-->
-				<!--//col-->
-				<!--//col-->
-				<!--//col-->
-				<!--//col-->
 			</div><!--//row-->
 		</div><!--//container-->
 	</div><!--//container-->
@@ -124,7 +117,8 @@
 		<!--//social-list-->
 		
 		<small class="copyright">Copyright © 2020.东南大学夏小俊课题组 All rights reserved.</small>
-		
+		<br>
+		<small class="copyright"><a href="http://beian.miit.gov.cn/">苏ICP备17030521号</a></small>
 		
 	</div>
 	
